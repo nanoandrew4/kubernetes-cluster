@@ -1,5 +1,5 @@
 # Kubernetes cluster
-A vagrant script for setting up a Kubernetes cluster using Kubeadm
+A vagrant script for setting up a Kubernetes cluster using Kubeadm. Helm is also installed, so that once the VMs are running, Helm charts can be deployed directly on to the machine, without having to do any extra configuration.
 
 ## Pre-requisites
 
@@ -8,24 +8,24 @@ A vagrant script for setting up a Kubernetes cluster using Kubeadm
 
 ## How to Run
 
-Execute the following vagrant command to start a new Kubernetes cluster, this will start one master and two nodes:
+Execute the following vagrant command to start a new Kubernetes cluster, this will start one master and one node:
 
 ```
 vagrant up
 ```
 
-You can also start invidual machines by vagrant up k8s-head, vagrant up k8s-node-1 and vagrant up k8s-node-2
+You can also start invidual machines by `vagrant up k8s-head`, `vagrant up k8s-node-1`
 
-If more than two nodes are required, you can edit the servers array in the Vagrantfile
+If more than one node is required, you can edit the servers array in the Vagrantfile
 
 ```
 servers = [
     {
-        :name => "k8s-node-3",
+        :name => "k8s-node-2",
         :type => "node",
-        :box => "ubuntu/xenial64",
-        :box_version => "20180831.0.0",
-        :eth1 => "192.168.205.13",
+        :box => "ubuntu/bionic64",
+        :box_version => "20190411.0.0",
+        :eth1 => "192.168.56.22",
         :mem => "2048",
         :cpu => "2"
     }
@@ -33,6 +33,10 @@ servers = [
  ```
 
 As you can see above, you can also configure IP address, memory and CPU in the servers array. 
+
+## Connecting to the VMs
+
+To ssh into each VM, simply run vagrant ssh and the VM name, for example: `vagrant ssh k8s-head`
 
 ## Clean-up
 
